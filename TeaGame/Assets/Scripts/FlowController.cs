@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class FlowController : MonoBehaviour
 {
-    public float currentTime;
-    public float targetTime;
+    public float currentSwitchTime;
+    public float switchTargetTime;
     public bool shouldTime;
-    public float[] emValues;
-    private ParticleController myController;
+    [SerializeField]
+    private float[] emValues;
+    [SerializeField]
+    private float[] multiplierValues;
 
+    private PlayerControls myPlayerControls;
     private void Start()
     {
-        myController = FindObjectOfType<ParticleController>();
+        myPlayerControls = GetComponent<PlayerControls>();
     }
 
     private void Update()
@@ -23,17 +26,22 @@ public class FlowController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Change flow randomly based on timer
+    /// </summary>
     private void Timer()
     {
-        currentTime += Time.deltaTime;
-        if (currentTime >= targetTime)
+        currentSwitchTime += Time.deltaTime;
+        if (currentSwitchTime >= switchTargetTime)
         {
             Debug.Log("Target time reached");
             int random = Random.Range(0, emValues.Length);
-            Debug.Log("emValues[" + random + "]");
+            Debug.Log("emValues[" + random + ']');
             float emToSet = emValues[random];
-            myController.SetEm(emToSet);
-            currentTime = 0;
+            Debug.Log("multiplierValues[" + random + ']');
+            myPlayerControls.pourMultiplier = multiplierValues[random];
+            ParticleController.instance.SetEm(emToSet);
+            currentSwitchTime = 0;
         }
     }
 }

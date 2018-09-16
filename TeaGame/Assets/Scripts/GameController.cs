@@ -13,9 +13,12 @@ public class GameController : MonoBehaviour
 {
     [SerializeField]
     private State myState;
-    public int targetValue;
-    public int[] possibleTargetValues;
+    public float targetValue;
+    public float[] possibleTargetValues;
 
+    [SerializeField]
+    private float savedTime;
+    
     public static GameController instance;
 
     private void Start()
@@ -36,8 +39,13 @@ public class GameController : MonoBehaviour
         myState = stateToSet;
     }
 
-    private void SetValue(int valueToSet)
+    private void SetValue(float valueToSet)
     {
         targetValue = valueToSet;
+    }
+
+    internal void SaveTime(float timeToSave)
+    {
+        savedTime = timeToSave;
     }
 }

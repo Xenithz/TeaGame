@@ -4,17 +4,22 @@ using UnityEngine;
 
 public class ParticleController : MonoBehaviour
 {
+    public static ParticleController instance;
+
     public ParticleSystem myParticleSystem;
     public List<ParticleSystem.Particle> enter = new List<ParticleSystem.Particle>();
     public int amountOfParticlesDetected;
 
-    private void OnParticleTrigger()
+    private void Start()
     {
-        int numEnter = myParticleSystem.GetTriggerParticles(ParticleSystemTriggerEventType.Enter, enter);
+        instance = this;
+    }
 
-        for (int i = 0; i < numEnter; i++)
+    private void Update()
+    {
+        if(instance != this)
         {
-            amountOfParticlesDetected++;
+            Destroy(this);
         }
     }
 
