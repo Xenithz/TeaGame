@@ -30,8 +30,10 @@ public class FlowController : MonoBehaviour
         {
             Debug.Log("Target time reached");
             int random = Random.Range(0, emValues.Length);
+            Debug.Log("emValues[" + random + "]");
             float emToSet = emValues[random];
             myController.SetEm(emToSet);
+            currentTime = 0;
         }
     }
 }

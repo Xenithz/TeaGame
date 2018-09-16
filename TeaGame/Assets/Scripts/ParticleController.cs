@@ -14,7 +14,6 @@ public class ParticleController : MonoBehaviour
 
         for (int i = 0; i < numEnter; i++)
         {
-            Debug.Log("Hit");
             amountOfParticlesDetected++;
         }
     }

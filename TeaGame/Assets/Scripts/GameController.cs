@@ -4,8 +4,9 @@ using UnityEngine;
 
 public enum State
 {
-    assigned,
-    notAssigned
+    prep,
+    ongoing,
+    done
 }
 
 public class GameController : MonoBehaviour
@@ -14,6 +15,21 @@ public class GameController : MonoBehaviour
     private State myState;
     public int targetValue;
     public int[] possibleTargetValues;
+
+    public static GameController instance;
+
+    private void Start()
+    {
+        instance = this;
+    }
+
+    private void Update()
+    {
+        if(instance != this)
+        {
+            Destroy(this);
+        }
+    }
 
     internal void SetState(State stateToSet)
     {
