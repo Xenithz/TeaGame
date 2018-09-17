@@ -35,10 +35,13 @@ public class GameController : MonoBehaviour
     public static GameController instance;
 
     public Vector3 finalPosition;
+
+    public int inputCount;
     
 
     private void Start()
     {
+        inputCount = 0;
         instance = this;
         savedYValue = float.NaN;
         hasOverflowed = false;
@@ -78,8 +81,24 @@ public class GameController : MonoBehaviour
         {
             Debug.Log("It's over");
             teaBase.transform.localPosition = finalPosition;
-            Debug.Log("Lost game");
             hasOverflowed = true;
+            UIController.instance.EnableResultPanel();
+            UIController.instance.LoseResult();
+            inputCount = 0;
+        }
+
+        if(savedYValue >= 0.72f && savedYValue <= targetValue /10f)
+        {
+            Debug.Log("You win");
+            UIController.instance.EnableResultPanel();
+            UIController.instance.WinResult();
+            inputCount = 0;
+        }
+        if(savedYValue < 0.72f && inputCount >= 2)
+        {
+            UIController.instance.EnableResultPanel();
+            UIController.instance.LoseResult();
+            inputCount = 0;
         }
     }
 
@@ -94,6 +113,7 @@ public class GameController : MonoBehaviour
     /// </summary>
     internal void PourFlask()
     {
+        inputCount++;
         isPouring = !isPouring;
         Debug.Log("isPouring is: " +isPouring);
         myAnimatorController.SetBool("shouldPour", !myAnimatorController.GetBool("shouldPour"));
@@ -117,9 +137,11 @@ public class GameController : MonoBehaviour
         ParticleController.instance.myParticleSystem.Play();
     }
 
-    internal void ResetGame()
+    public void ResetGame()
     {
         savedYValue = 0f;
-        hasOverflowed = true;
+        hasOverflowed = false;
+        teaBase.transform.localPosition = new Vector3(teaBase.transform.localPosition.x, -0.284f, teaBase.transform.localPosition.z);
+        UIController.instance.DisableResultPanel();
     }
 }
