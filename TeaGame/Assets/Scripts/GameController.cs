@@ -13,16 +13,13 @@ public class GameController : MonoBehaviour
 {
     [SerializeField]
     private State myState;
-    public float targetValue;
+    public float targetValue = 9.67f;
     public float[] possibleTargetValues;
 
     [SerializeField]
-    private float savedTime;
+    private float savedYValue;
 
     public float difference;
-
-    [SerializeField]
-    private float pourTime;
 
     [SerializeField]
     private Animator myAnimatorController;
@@ -30,15 +27,23 @@ public class GameController : MonoBehaviour
     public bool isPouring;
 
     public float pourMultiplier;
+
+    public bool hasOverflowed;
+
+    public Transform teaBase;
     
     public static GameController instance;
+
+    public Vector3 finalPosition;
+    
 
     private void Start()
     {
         instance = this;
-        savedTime = float.NaN;
-        pourMultiplier = 1f;
-        PickTarget();
+        savedYValue = float.NaN;
+        hasOverflowed = false;
+        finalPosition = new Vector3(teaBase.transform.position.x, targetValue / 10f, teaBase.transform.position.z);
+        Debug.Log(targetValue / 10f);
     }
 
     private void Update()
@@ -48,22 +53,33 @@ public class GameController : MonoBehaviour
             Destroy(this);
         }
 
-        if(savedTime != float.NaN)
+        if(savedYValue != float.NaN)
         {
-            difference = targetValue - savedTime;
+            difference = targetValue - savedYValue;
         }
+        
+        Vector3 storedTransform = teaBase.transform.localPosition;
 
          switch(isPouring)
         {
             case true:
-            pourTime += Time.deltaTime * pourMultiplier;
+            storedTransform.y += Time.deltaTime * pourMultiplier;
+            teaBase.transform.localPosition = storedTransform;
             break;
             case false:
-            savedTime = pourTime;
-            // pourTime = 0f;
+            savedYValue = storedTransform.y;
+            // trackedYValue = 0f;
             break;
             default:
             break;
+        }
+
+        if(storedTransform.y > targetValue / 10f)
+        {
+            Debug.Log("It's over");
+            teaBase.transform.localPosition = finalPosition;
+            Debug.Log("Lost game");
+            hasOverflowed = true;
         }
     }
 
@@ -101,8 +117,9 @@ public class GameController : MonoBehaviour
         ParticleController.instance.myParticleSystem.Play();
     }
 
-    internal void ClearSavedTime()
+    internal void ResetGame()
     {
-        savedTime = 0f;
+        savedYValue = 0f;
+        hasOverflowed = true;
     }
 }
