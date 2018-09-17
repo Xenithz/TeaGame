@@ -7,8 +7,6 @@ public class ParticleController : MonoBehaviour
     public static ParticleController instance;
 
     public ParticleSystem myParticleSystem;
-    public List<ParticleSystem.Particle> enter = new List<ParticleSystem.Particle>();
-    public int amountOfParticlesDetected;
 
     private void Start()
     {

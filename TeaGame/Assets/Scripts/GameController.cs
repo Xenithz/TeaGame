@@ -18,12 +18,27 @@ public class GameController : MonoBehaviour
 
     [SerializeField]
     private float savedTime;
+
+    public float difference;
+
+    [SerializeField]
+    private float pourTime;
+
+    [SerializeField]
+    private Animator myAnimatorController;
+
+    public bool isPouring;
+
+    public float pourMultiplier;
     
     public static GameController instance;
 
     private void Start()
     {
         instance = this;
+        savedTime = float.NaN;
+        pourMultiplier = 1f;
+        PickTarget();
     }
 
     private void Update()
@@ -32,20 +47,62 @@ public class GameController : MonoBehaviour
         {
             Destroy(this);
         }
+
+        if(savedTime != float.NaN)
+        {
+            difference = targetValue - savedTime;
+        }
+
+         switch(isPouring)
+        {
+            case true:
+            pourTime += Time.deltaTime * pourMultiplier;
+            break;
+            case false:
+            savedTime = pourTime;
+            // pourTime = 0f;
+            break;
+            default:
+            break;
+        }
     }
 
-    internal void SetState(State stateToSet)
+    private void PickTarget()
     {
-        myState = stateToSet;
+        int randomInt = Random.Range(0, possibleTargetValues.Length);
+        targetValue = possibleTargetValues[randomInt];
     }
 
-    private void SetValue(float valueToSet)
+    /// <summary>
+    /// Function to rotate flask and start/stop particle system depending on pouring bool
+    /// </summary>
+    internal void PourFlask()
     {
-        targetValue = valueToSet;
+        isPouring = !isPouring;
+        Debug.Log("isPouring is: " +isPouring);
+        myAnimatorController.SetBool("shouldPour", !myAnimatorController.GetBool("shouldPour"));
+        
+        switch(isPouring)
+        {
+            case true:
+            StartCoroutine(StartParticleSystem());
+            break;
+            case false:
+            ParticleController.instance.myParticleSystem.Stop();
+            break;
+            default:
+            break;
+        }
     }
 
-    internal void SaveTime(float timeToSave)
+    IEnumerator StartParticleSystem()
     {
-        savedTime = timeToSave;
+        yield return new WaitForSeconds(1.75f);
+        ParticleController.instance.myParticleSystem.Play();
+    }
+
+    internal void ClearSavedTime()
+    {
+        savedTime = 0f;
     }
 }

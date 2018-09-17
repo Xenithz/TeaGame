@@ -6,7 +6,7 @@ public class FlowController : MonoBehaviour
 {
     public float currentSwitchTime;
     public float switchTargetTime;
-    public bool shouldTime;
+
     [SerializeField]
     private float[] emValues;
     [SerializeField]
@@ -20,7 +20,7 @@ public class FlowController : MonoBehaviour
 
     private void Update()
     {
-        if (shouldTime == true)
+        if (GameController.instance.isPouring == true)
         {
             Timer();
         }
@@ -39,7 +39,7 @@ public class FlowController : MonoBehaviour
             Debug.Log("emValues[" + random + ']');
             float emToSet = emValues[random];
             Debug.Log("multiplierValues[" + random + ']');
-            myPlayerControls.pourMultiplier = multiplierValues[random];
+            GameController.instance.pourMultiplier = multiplierValues[random];
             ParticleController.instance.SetEm(emToSet);
             currentSwitchTime = 0;
         }
