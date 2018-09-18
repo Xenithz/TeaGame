@@ -36,6 +36,8 @@ public class GameController : MonoBehaviour
 
     public Vector3 finalPosition;
 
+    public bool isTracking;
+
     public int inputCount;
     
 
@@ -46,7 +48,6 @@ public class GameController : MonoBehaviour
         savedYValue = float.NaN;
         hasOverflowed = false;
         finalPosition = new Vector3(teaBase.transform.position.x, targetValue / 10f, teaBase.transform.position.z);
-        Debug.Log(targetValue / 10f);
     }
 
     private void Update()
@@ -84,7 +85,6 @@ public class GameController : MonoBehaviour
             hasOverflowed = true;
             UIController.instance.EnableResultPanel();
             UIController.instance.LoseResult();
-            inputCount = 0;
         }
 
         if(savedYValue >= 0.72f && savedYValue <= targetValue /10f)
@@ -92,13 +92,11 @@ public class GameController : MonoBehaviour
             Debug.Log("You win");
             UIController.instance.EnableResultPanel();
             UIController.instance.WinResult();
-            inputCount = 0;
         }
         if(savedYValue < 0.72f && inputCount >= 2)
         {
             UIController.instance.EnableResultPanel();
             UIController.instance.LoseResult();
-            inputCount = 0;
         }
     }
 
@@ -113,21 +111,24 @@ public class GameController : MonoBehaviour
     /// </summary>
     internal void PourFlask()
     {
-        inputCount++;
-        isPouring = !isPouring;
-        Debug.Log("isPouring is: " +isPouring);
-        myAnimatorController.SetBool("shouldPour", !myAnimatorController.GetBool("shouldPour"));
-        
-        switch(isPouring)
+        if(isTracking == true && inputCount < 2)
         {
-            case true:
-            StartCoroutine(StartParticleSystem());
-            break;
-            case false:
-            ParticleController.instance.myParticleSystem.Stop();
-            break;
-            default:
-            break;
+            inputCount++;
+            isPouring = !isPouring;
+            Debug.Log("isPouring is: " +isPouring);
+            myAnimatorController.SetBool("shouldPour", !myAnimatorController.GetBool("shouldPour"));
+        
+            switch(isPouring)
+            {
+                case true:
+                StartCoroutine(StartParticleSystem());
+                break;
+                case false:
+                ParticleController.instance.myParticleSystem.Stop();
+                break;
+                default:
+                break;
+            }
         }
     }
 
@@ -139,6 +140,7 @@ public class GameController : MonoBehaviour
 
     public void ResetGame()
     {
+        inputCount = 0;
         savedYValue = 0f;
         hasOverflowed = false;
         teaBase.transform.localPosition = new Vector3(teaBase.transform.localPosition.x, -0.284f, teaBase.transform.localPosition.z);

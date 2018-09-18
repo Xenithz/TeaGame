@@ -33,7 +33,6 @@ public class FlowController : MonoBehaviour
         currentSwitchTime += Time.deltaTime;
         if (currentSwitchTime >= switchTargetTime)
         {
-            Debug.Log("Target time reached");
             float random = Random.Range(0, maximumRange);
             float emToSet = random * emMultiplier;
             GameController.instance.pourMultiplier = random;
