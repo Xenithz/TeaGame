@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿	using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -35,7 +35,7 @@ public class UIController : MonoBehaviour
 	{
 		resultText.text = "You win!";
 	}
-
+	
 	public void LoseResult()
 	{
 		resultText.text = "You lose!";

@@ -19,7 +19,7 @@ public class FlowController : MonoBehaviour
 
     private void Update()
     {
-        if (GameController.instance.isPouring == true)
+        if (GameController.instance.IsSomeoneCurrentlyPouring() == true)
         {
             Timer();
         }
