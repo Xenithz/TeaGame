@@ -138,6 +138,7 @@ public class GameController : MonoBehaviour
             CanvasManager.instance.ActiveButtonByPanel(CanvasManager.instance.LoseScreen, 0).onClick.AddListener(ResetGame);
             
         }
+
     }
 
     /// <summary>
@@ -156,6 +157,9 @@ public class GameController : MonoBehaviour
                 isGamePlaying = false;
                 savedYValue = storedTransform.y;
 
+                if(myAnimatorController.GetBool("shouldPour"))
+                    myAnimatorController.SetBool("shouldPour", false);
+                    
                 SingleplayerFinishStateUpdate(storedTransform);
                 inputCount++;
 
@@ -182,7 +186,7 @@ public class GameController : MonoBehaviour
             if(!ParticleController.instance.myParticleSystem.isPlaying)
                 ParticleController.instance.myParticleSystem.Stop();
 
-            if(!myAnimatorController.GetBool("shouldPour"))
+            if(myAnimatorController.GetBool("shouldPour"))
                 myAnimatorController.SetBool("shouldPour", false);
 
             SetTeaBasePosition(0);
