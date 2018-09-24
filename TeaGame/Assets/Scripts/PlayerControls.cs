@@ -16,10 +16,19 @@ public class PlayerControls : PunBehaviour, IPunObservable
 	public Text ActionButtonText;
 	private bool CanPour;
 	private int inputCount = 0;
+	[SerializeField]
 	private float Score = 0;
 
 	public float TeaLevel;
 	public bool IsPlayerPouring;
+
+	[Header("Flow Variables")]
+	public float currentSwitchTime;
+    public float switchTargetTime;
+    public float maximumRange;
+	public float pourMultiplier;
+
+	#region UNITY_CALLBACKS
 
 	// Use this for initialization
 	void Start ()
@@ -86,10 +95,15 @@ public class PlayerControls : PunBehaviour, IPunObservable
 		}
 		if(IsPlayerPouring)
 		{
-			TeaLevel += Time.deltaTime * GameController.instance.pourMultiplier;
+			UpdatePourMultiplier();
+			TeaLevel += Time.deltaTime * pourMultiplier;
 
 		}
 	}
+
+	#endregion
+
+	#region PUBLIC_METHODS
 
 	public void PourFlask()
 	{
@@ -126,7 +140,22 @@ public class PlayerControls : PunBehaviour, IPunObservable
 			}	
 		}
 	}
-	
+	#endregion
+
+	private void UpdatePourMultiplier()
+	{
+		currentSwitchTime += Time.deltaTime;
+		if(currentSwitchTime >= switchTargetTime)
+		{
+			float random = Random.Range(0,maximumRange);
+			pourMultiplier = random;
+			currentSwitchTime = 0;
+		}
+	}
+
+	/// <summary>
+	/// Sends the streamed data.
+	/// </summary>
 	void IPunObservable.OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo msg)
 	{
 		if(stream.isWriting)
@@ -136,6 +165,9 @@ public class PlayerControls : PunBehaviour, IPunObservable
 			stream.SendNext(Score);
 			stream.SendNext(TeaLevel);
 			stream.SendNext(IsPlayerPouring);
+			stream.SendNext(currentSwitchTime);
+			stream.SendNext(pourMultiplier);
+			
 		}
 		else
 		{
@@ -144,6 +176,8 @@ public class PlayerControls : PunBehaviour, IPunObservable
 			this.Score = (float)stream.ReceiveNext();
 			this.TeaLevel = (float)stream.ReceiveNext();
 			this.IsPlayerPouring = (bool)stream.ReceiveNext();
+			this.currentSwitchTime = (float)stream.ReceiveNext();
+			this.pourMultiplier = (float)stream.ReceiveNext();
 		}
 	}
 }

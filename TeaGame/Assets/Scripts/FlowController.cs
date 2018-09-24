@@ -36,7 +36,10 @@ public class FlowController : MonoBehaviour
             float random = Random.Range(0, maximumRange);
             float emToSet = random * emMultiplier;
             GameController.instance.pourMultiplier = random;
-            ParticleController.instance.SetEm(emToSet);
+
+            // if(!PhotonNetwork.connected)
+            //     ParticleController.instance.SetEm(emToSet);
+                
             currentSwitchTime = 0;
         }
     }

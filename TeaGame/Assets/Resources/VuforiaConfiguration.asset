@@ -54,10 +54,10 @@ MonoBehaviour:
     autoInitTracker: 0
     autoStartTracker: 0
     trackingMode: 1
-    posePrediction: 0
-    modelCorrectionMode: 0
+    posePrediction: 1
+    modelCorrectionMode: 2
     modelTransformEnabled: 0
-    modelTransform: {x: 0, y: 0.1, z: -0.1}
+    modelTransform: {x: 0, y: 0, z: 0.264}
     fusionMode: 7
   smartTerrain:
     autoInitTracker: 0

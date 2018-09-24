@@ -69,6 +69,7 @@ public class GameController : MonoBehaviour
         if(!isGamePlaying)
             return;
         
+        UpdateMovables();
         if(!PhotonNetwork.connected)
         {
             // storedTransform = teaBase.transform.localPosition;
@@ -87,7 +88,6 @@ public class GameController : MonoBehaviour
             }
         }
 
-        UpdateMovables();
     }
 
     private void SetTeaBasePosition(float y)
@@ -183,7 +183,7 @@ public class GameController : MonoBehaviour
         }
         else
         {
-            if(!ParticleController.instance.myParticleSystem.isPlaying)
+            if(ParticleController.instance.myParticleSystem.isPlaying)
                 ParticleController.instance.myParticleSystem.Stop();
 
             if(myAnimatorController.GetBool("shouldPour"))
@@ -195,7 +195,7 @@ public class GameController : MonoBehaviour
 
     public bool IsSomeoneCurrentlyPouring()
     {
-        if(PhotonNetwork.connected && !isGamePlaying)
+        if(PhotonNetwork.connected && isGamePlaying)
         {
             if(NetworkManager.Instance.LocalPlayer.IsPlayerPouring)
             {
@@ -241,10 +241,10 @@ public class GameController : MonoBehaviour
     {
         yield return new WaitForSeconds(1.75f);
 
-        if(!ParticleController.instance.myParticleSystem.isPlaying)
+        //if(!ParticleController.instance.myParticleSystem.isPlaying)
             ParticleController.instance.myParticleSystem.Play();
-        else
-            ParticleController.instance.myParticleSystem.Stop();
+        // else
+        //     ParticleController.instance.myParticleSystem.Stop();
         
     }
 
