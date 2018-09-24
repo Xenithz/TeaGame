@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QCARInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="QCAR_Dataset_config.xsd">
+  <TargetSet version="5.0" toolVersion="4.2.0">
+    <ObjectTarget bbox="0.0 0.0 0.0 0.1 0.1 0.1" captureAppVersion="6.5.0" lastSaved="2018-09-24 09:59:36" name="cupfinal1" targetId="3b81b4d7e56b4777bbf6a6afd2cc4a2c" version="2.0" />
+    <ObjectTarget bbox="0.0 0.0 0.0 0.1 0.1 0.1" captureAppVersion="6.5.0" lastSaved="2018-09-24 10:03:42" name="aneeshawatch1" targetId="8c78ba1fa5bc48e68184e8c48bfe3198" version="2.0" />
+    <ObjectTarget bbox="0.0 0.0 0.0 0.1 0.1 0.1" captureAppVersion="6.5.0" lastSaved="2018-09-24 09:36:54" name="mask1" targetId="b35e3c5b5724425b9c6367cb0658693d" version="2.0" />
+    <ObjectTarget bbox="0.0 0.0 0.0 0.1 0.1 0.1" captureAppVersion="6.5.0" lastSaved="2018-09-24 09:24:25" name="cupbare" targetId="1b8964fe0bea43848a0e0d39511d32b6" version="2.0" />
+    <ObjectTarget bbox="0.0 0.0 0.0 0.1 0.1 0.1" captureAppVersion="6.5.0" lastSaved="2018-09-23 09:29:20" name="cup1" targetId="e316d3599293432986b477c9e4768559" version="2.0" />
+    <ObjectTarget bbox="0.0 0.0 0.0 0.1 0.1 0.1" captureAppVersion="6.5.0" lastSaved="2018-09-20 09:18:43" name="cup" targetId="75a5a6aaa7294627a1b7d284dc49ce67" version="2.0" />
+  </TargetSet>
+</QCARInfo>

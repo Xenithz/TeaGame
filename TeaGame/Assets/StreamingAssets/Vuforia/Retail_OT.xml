@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QCARConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="QCAR_Dataset_config.xsd">
+  <Tracking>
+    <ObjectTarget name="cupfinal1" />
+    <ObjectTarget name="aneeshawatch1" />
+    <ObjectTarget name="mask1" />
+    <ObjectTarget name="cupbare" />
+    <ObjectTarget name="cup1" />
+    <ObjectTarget name="cup" />
+  </Tracking>
+</QCARConfig>
