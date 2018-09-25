@@ -156,7 +156,7 @@ public class GameController : MonoBehaviour
             {
                 isGamePlaying = false;
                 savedYValue = storedTransform.y;
-
+                
                 if(myAnimatorController.GetBool("shouldPour"))
                     myAnimatorController.SetBool("shouldPour", false);
                     
@@ -174,7 +174,10 @@ public class GameController : MonoBehaviour
         {
             if(!ParticleController.instance.myParticleSystem.isPlaying)
                 StartCoroutine(StartParticleSystem());
-
+            if(!teaBase.gameObject.activeSelf)
+            {
+                teaBase.gameObject.SetActive(true);
+            }
             if(!myAnimatorController.GetBool("shouldPour"))
                 myAnimatorController.SetBool("shouldPour", true);
                 
@@ -186,6 +189,11 @@ public class GameController : MonoBehaviour
             if(ParticleController.instance.myParticleSystem.isPlaying)
                 ParticleController.instance.myParticleSystem.Stop();
 
+            if(teaBase.gameObject.activeSelf)
+            {
+                teaBase.gameObject.SetActive(false);
+            }
+            
             if(myAnimatorController.GetBool("shouldPour"))
                 myAnimatorController.SetBool("shouldPour", false);
 
