@@ -48,6 +48,8 @@ public class GameController : MonoBehaviour
     public bool isGamePlaying = false;
     [SerializeField]
     Vector3 storedTransform;
+    [SerializeField]
+    ParticleSystem OverflowParticles;
 
     private void Start()
     {
@@ -74,13 +76,16 @@ public class GameController : MonoBehaviour
         {
             // storedTransform = teaBase.transform.localPosition;
 
-            if(isPouring){
+            if(isPouring)
+            {
+
                 storedTransform.y += Time.deltaTime * pourMultiplier;
                 Debug.Log("Stored transform is " + storedTransform.y);
 
             }
             else
             {
+
                 savedYValue = storedTransform.y;
 
                 Debug.Log("Saved Y value is: " + savedYValue);
@@ -90,12 +95,20 @@ public class GameController : MonoBehaviour
 
     }
 
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
     private void SetTeaBasePosition(float y)
     {
         Vector3 teaPos = teaBase.transform.localPosition;
         Vector3 TempVect = new Vector3(teaPos.x,
         y, teaPos.z);
-
+        if(TempVect.y > 1f)
+        {
+            TempVect.y = 1f;
+        }
         teaBase.transform.localPosition = TempVect;
 
     }
@@ -150,16 +163,19 @@ public class GameController : MonoBehaviour
         {
             inputCount++;
 
-            isPouring = !isPouring;
+            if(inputCount == 1)
+                isPouring = true;
+            
             Debug.Log("isPouring is: " +isPouring);
-            if(inputCount == 2)
+            if(inputCount >= 2)
             {
                 isGamePlaying = false;
                 savedYValue = storedTransform.y;
                 
                 if(myAnimatorController.GetBool("shouldPour"))
                     myAnimatorController.SetBool("shouldPour", false);
-                    
+                isPouring = false;
+
                 SingleplayerFinishStateUpdate(storedTransform);
                 inputCount++;
 
@@ -172,22 +188,53 @@ public class GameController : MonoBehaviour
     {
         if(IsSomeoneCurrentlyPouring())
         {
-            if(!ParticleController.instance.myParticleSystem.isPlaying)
-                StartCoroutine(StartParticleSystem());
+            // if(!ParticleController.instance.myParticleSystem.isPlaying)
+            //     StartCoroutine(StartParticleSystem());
             if(!teaBase.gameObject.activeSelf)
             {
                 teaBase.gameObject.SetActive(true);
             }
+
+            
             if(!myAnimatorController.GetBool("shouldPour"))
                 myAnimatorController.SetBool("shouldPour", true);
+            
+            if(GetYValueOfTurner() > targetValue / 10f)
+            {
+                hasOverflowed = true;
+                OverflowParticles.gameObject.SetActive(true);
+                OverflowParticles.Play();
+            }
+            else
+            {
+                hasOverflowed = false;
+                OverflowParticles.gameObject.SetActive(false);
                 
+                OverflowParticles.Stop();                
+            }
+
             SetTeaBasePosition(GetYValueOfTurner());
 
         }
         else
         {
-            if(ParticleController.instance.myParticleSystem.isPlaying)
-                ParticleController.instance.myParticleSystem.Stop();
+            if(GetYValueOfTurner() > ((targetValue / 10f) - 0.01f))
+            {
+                hasOverflowed = true;
+                OverflowParticles.gameObject.SetActive(true);
+
+                OverflowParticles.Play();
+            }
+            else
+            {
+                hasOverflowed = false;
+                OverflowParticles.gameObject.SetActive(false);
+
+                OverflowParticles.Stop();                
+            }
+
+
+            //ParticleController.instance.myParticleSystem.Stop();
 
             if(teaBase.gameObject.activeSelf)
             {
@@ -216,9 +263,13 @@ public class GameController : MonoBehaviour
             else
                 return false;
         }
-        else
+        else if(!PhotonNetwork.connected && isGamePlaying)
         {
             return isPouring;
+        }
+        else
+        {
+            return false;
         }
     }
 
@@ -245,22 +296,25 @@ public class GameController : MonoBehaviour
     
     }
 
-    IEnumerator StartParticleSystem()
-    {
-        yield return new WaitForSeconds(1.75f);
+    // IEnumerator StartParticleSystem()
+    // {
+    //     yield return new WaitForSeconds(1.75f);
 
-        //if(!ParticleController.instance.myParticleSystem.isPlaying)
-            ParticleController.instance.myParticleSystem.Play();
-        // else
-        //     ParticleController.instance.myParticleSystem.Stop();
+    //     if(!ParticleController.instance.myParticleSystem.isPlaying)
+    //         ParticleController.instance.myParticleSystem.Play();
+    //     else
+    //         ParticleController.instance.myParticleSystem.Stop();
         
-    }
+    // }
 
     public void ResetGame()
     {
         inputCount = 0;
         savedYValue = 0f;
         hasOverflowed = false;
+        OverflowParticles.gameObject.SetActive(false);
+        
+        OverflowParticles.Stop();
         storedTransform = Vector3.zero;
         
         teaBase.transform.localPosition = new Vector3(teaBase.transform.localPosition.x, -0.284f, teaBase.transform.localPosition.z);

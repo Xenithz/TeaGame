@@ -27,6 +27,7 @@ public class PlayerControls : PunBehaviour, IPunObservable
     public float switchTargetTime;
     public float maximumRange;
 	public float pourMultiplier;
+	public float multiply;
 
 	#region UNITY_CALLBACKS
 
@@ -148,7 +149,7 @@ public class PlayerControls : PunBehaviour, IPunObservable
 		if(currentSwitchTime >= switchTargetTime)
 		{
 			float random = Random.Range(0,maximumRange);
-			pourMultiplier = random;
+			pourMultiplier = random * multiply;
 			currentSwitchTime = 0;
 		}
 	}

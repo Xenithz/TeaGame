@@ -12,6 +12,8 @@ public class FlowController : MonoBehaviour
     public float maximumRange;
 
     private PlayerControls myPlayerControls;
+    public float multiply;
+
     private void Start()
     {
         myPlayerControls = GetComponent<PlayerControls>();
@@ -35,7 +37,7 @@ public class FlowController : MonoBehaviour
         {
             float random = Random.Range(0, maximumRange);
             float emToSet = random * emMultiplier;
-            GameController.instance.pourMultiplier = random;
+            GameController.instance.pourMultiplier = random * multiply;
 
             // if(!PhotonNetwork.connected)
             //     ParticleController.instance.SetEm(emToSet);

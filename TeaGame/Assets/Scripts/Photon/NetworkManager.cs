@@ -219,7 +219,7 @@ namespace PDX.Network
             TurnExtensions.SetTurn(PhotonNetwork.room, 0, false);
             CanvasManager.instance.DisableAllPanels();
             PhotonNetwork.Disconnect();
-            UnityEngine.SceneManagement.SceneManager.LoadScene("Start Scene", UnityEngine.SceneManagement.LoadSceneMode.Single);
+            UnityEngine.SceneManagement.SceneManager.LoadScene(0, UnityEngine.SceneManagement.LoadSceneMode.Single);
         }
         #endregion
 
