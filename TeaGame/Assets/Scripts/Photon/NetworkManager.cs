@@ -201,7 +201,7 @@ namespace PDX.Network
                 CanvasManager.instance.SecondaryTextByPanel(CanvasManager.instance.WinScreen).text = "Reset Game";
                 CanvasManager.instance.ActiveButtonByPanel(CanvasManager.instance.WinScreen, 0).onClick.AddListener(ResetGame);
            }
-           else
+           else if(!DidLocalPlayerWin())
            {
                CanvasManager.instance.ActivatePanel(CanvasManager.instance.LoseScreen);
 
@@ -227,9 +227,9 @@ namespace PDX.Network
 
         bool DidLocalPlayerWin()
         {
-           if(LocalPlayer.CurrentScore <= GameController.instance.targetValue/10f)
+           if(LocalPlayer.CurrentScore >= 0.72f && LocalPlayer.CurrentScore < (GameController.instance.targetValue/10f))
            {
-               if(LocalPlayer.CurrentScore > RemotePlayer.CurrentScore)
+               if(LocalPlayer.CurrentScore > RemotePlayer.CurrentScore || RemotePlayer.CurrentScore > (GameController.instance.targetValue/10f))
                {
                    return true;
                }
