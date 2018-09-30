@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VuforiaUnityInfo version="7.0">
+    <TargetSet version="5.0" toolVersion="2.7.4">
+        <CylinderTarget name="Chai" version="3.0" targetId="4d892f0f10ad410ca508f29feb0dd1c2" sideLength="91.500000" topDiameter="75.599998" bottomDiameter="55.400002" sideImage="Chai.Body_scaled.jpg"/>
+    </TargetSet>
+</VuforiaUnityInfo>

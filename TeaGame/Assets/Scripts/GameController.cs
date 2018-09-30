@@ -3,13 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using PDX.Network;
 
-public enum State
-{
-    prep,
-    ongoing,
-    done
-}
-
 public class GameController : MonoBehaviour
 {
 
@@ -18,8 +11,6 @@ public class GameController : MonoBehaviour
         get {return savedYValue; }
     }
 
-    [SerializeField]
-    private State myState;
     public float targetValue = 9.67f;
     [SerializeField]
     private float savedYValue;
