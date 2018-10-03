@@ -224,7 +224,7 @@ MonoBehaviour:
   switchTargetTime: 0.25
   maximumRange: 0.125
   pourMultiplier: 0
-  multiply: 2
+  multiply: 2.5
 --- !u!114 &114943940469869284
 MonoBehaviour:
   m_ObjectHideFlags: 1

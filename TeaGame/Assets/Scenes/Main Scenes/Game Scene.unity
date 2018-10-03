@@ -201,9 +201,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentSwitchTime: 0
   switchTargetTime: 0.25
-  emMultiplier: 900
+  emMultiplier: 1000
   maximumRange: 0.125
-  multiply: 2
+  multiply: 2.5
 --- !u!114 &38592198
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11932,7 +11932,7 @@ Transform:
   m_GameObject: {fileID: 576711878}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.974, y: -2.438, z: -0.39}
-  m_LocalScale: {x: 0.73586, y: 0.73586, z: 0.73586}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_Children:
   - {fileID: 1586159165}
   - {fileID: 1670944055}
@@ -12014,14 +12014,14 @@ MonoBehaviour:
   m_Script: {fileID: -1631628248, guid: bab6fa851cf5a1a4bba3cec5f191cb8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mTrackableName: chachachai_logo_circle
+  mTrackableName: ChaCoaster
   mPreserveChildSize: 1
   mInitializedInEditor: 1
-  mDataSetPath: Vuforia/Retail.xml
+  mDataSetPath: Vuforia/Detect2.xml
   mAspectRatio: 1
   mImageTargetType: 0
-  mWidth: 0.73586
-  mHeight: 0.73586
+  mWidth: 0.8
+  mHeight: 0.8
 --- !u!114 &576711885
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12913,7 +12913,7 @@ Material:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: 'chachachai_logo_circleMaterial
+  m_Name: 'ChaCoasterMaterial
 
     15358'
   m_Shader: {fileID: 10752, guid: 0000000000000000f000000000000000, type: 0}
@@ -12928,7 +12928,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 37a55e43017142b09403af995e66c56a, type: 3}
+        m_Texture: {fileID: 2800000, guid: f2793366f2a743e193816e0171c307b0, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats: []
@@ -21859,27 +21859,27 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4031897202732852, guid: 23afa0e08f6de3f47a38aaedce8250fd, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -1.252
+      value: -1.1516207
       objectReference: {fileID: 0}
     - target: {fileID: 4031897202732852, guid: 23afa0e08f6de3f47a38aaedce8250fd, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.1713505
+      value: 0.15761256
       objectReference: {fileID: 0}
     - target: {fileID: 4031897202732852, guid: 23afa0e08f6de3f47a38aaedce8250fd, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 0.04983228
+      value: -0.021453276
       objectReference: {fileID: 0}
     - target: {fileID: 4031897202732852, guid: 23afa0e08f6de3f47a38aaedce8250fd, type: 2}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4031897202732852, guid: 23afa0e08f6de3f47a38aaedce8250fd, type: 2}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4031897202732852, guid: 23afa0e08f6de3f47a38aaedce8250fd, type: 2}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4031897202732852, guid: 23afa0e08f6de3f47a38aaedce8250fd, type: 2}
       propertyPath: m_LocalRotation.w
@@ -22161,15 +22161,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4031897202732852, guid: 23afa0e08f6de3f47a38aaedce8250fd, type: 2}
       propertyPath: m_LocalScale.x
-      value: 0.6304169
+      value: 0.57987326
       objectReference: {fileID: 0}
     - target: {fileID: 4031897202732852, guid: 23afa0e08f6de3f47a38aaedce8250fd, type: 2}
       propertyPath: m_LocalScale.y
-      value: 0.6304167
+      value: 0.579873
       objectReference: {fileID: 0}
     - target: {fileID: 4031897202732852, guid: 23afa0e08f6de3f47a38aaedce8250fd, type: 2}
       propertyPath: m_LocalScale.z
-      value: 0.6304169
+      value: 0.57987326
       objectReference: {fileID: 0}
     - target: {fileID: 4031897202732852, guid: 23afa0e08f6de3f47a38aaedce8250fd, type: 2}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -22425,9 +22425,9 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1670944054}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0027574014, y: 0.25052387, z: 0.06771967}
-  m_LocalScale: {x: 0.6304169, y: 0.6304167, z: 0.6304169}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.0025363266, y: 0.23043811, z: -0.00500001}
+  m_LocalScale: {x: 0.57987326, y: 0.579873, z: 0.57987326}
   m_Children:
   - {fileID: 130470389}
   - {fileID: 187173467}
