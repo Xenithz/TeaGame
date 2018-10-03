@@ -90,7 +90,9 @@ public class GameController : MonoBehaviour
     {
         Application.Quit();
     }
+    [SerializeField]
     private bool hasDonePouring = false;
+    [SerializeField]
     private bool hasDoneIEnum = false;
     private void SetTeaBasePosition(float y)
     {
@@ -98,13 +100,13 @@ public class GameController : MonoBehaviour
         Vector3 TempVect = new Vector3(teaPos.x,
         y, teaPos.z);
 
-        if(hasDonePouring == false)
+        if(hasDonePouring == false && y != 0)
         {
             if(!hasDoneIEnum) StartCoroutine(StartPouring());
 
             teaBase.gameObject.SetActive(false);
         }
-        else
+        else if( y != 0)
             teaBase.gameObject.SetActive(true);
         
         if(TempVect.y > 1f)
@@ -118,7 +120,7 @@ public class GameController : MonoBehaviour
     IEnumerator StartPouring()
     {
         hasDoneIEnum = true;
-        yield return new WaitForSeconds(0.15f);
+        yield return new WaitForSeconds(1f);
         
         hasDonePouring = true;
     }
@@ -329,6 +331,9 @@ public class GameController : MonoBehaviour
         storedTransform = Vector3.zero;
         
         teaBase.transform.localPosition = new Vector3(teaBase.transform.localPosition.x, -0.284f, teaBase.transform.localPosition.z);
+
+        hasDonePouring = false;
+        hasDoneIEnum = false;
         // UIController.instance.DisableResultPanel();
         if(PhotonNetwork.connected)
         {
