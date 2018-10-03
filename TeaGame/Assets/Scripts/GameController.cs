@@ -90,18 +90,37 @@ public class GameController : MonoBehaviour
     {
         Application.Quit();
     }
-
+    private bool hasDonePouring = false;
+    private bool hasDoneIEnum = false;
     private void SetTeaBasePosition(float y)
     {
         Vector3 teaPos = teaBase.transform.localPosition;
         Vector3 TempVect = new Vector3(teaPos.x,
         y, teaPos.z);
+
+        if(hasDonePouring == false)
+        {
+            if(!hasDoneIEnum) StartCoroutine(StartPouring());
+
+            teaBase.gameObject.SetActive(false);
+        }
+        else
+            teaBase.gameObject.SetActive(true);
+        
         if(TempVect.y > 1f)
         {
             TempVect.y = 1f;
         }
         teaBase.transform.localPosition = TempVect;
 
+    }
+
+    IEnumerator StartPouring()
+    {
+        hasDoneIEnum = true;
+        yield return new WaitForSeconds(0.15f);
+        
+        hasDonePouring = true;
     }
 
     private void SingleplayerFinishStateUpdate(Vector3 storedTransform)
@@ -174,6 +193,7 @@ public class GameController : MonoBehaviour
             
         }
     }
+
 
     public void UpdateMovables()
     {
